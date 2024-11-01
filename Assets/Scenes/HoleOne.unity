@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 295748692}
   - component: {fileID: 295748691}
   m_Layer: 0
-  m_Name: Border2
+  m_Name: WestBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,8 +288,8 @@ Transform:
   m_GameObject: {fileID: 295748690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.19, y: 0.019, z: 13.33}
-  m_LocalScale: {x: 22.331263, y: 0.0177, z: 0.0066}
+  m_LocalPosition: {x: -2.16, y: 0.03, z: 13.32268}
+  m_LocalScale: {x: 22.246264, y: 0.03387957, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 1606655050}
   - component: {fileID: 1606655049}
   m_Layer: 0
-  m_Name: Border1
+  m_Name: EastBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1008,8 +1008,8 @@ Transform:
   m_GameObject: {fileID: 1606655048}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.09, y: 0.019, z: 13.33}
-  m_LocalScale: {x: 22.331263, y: 0.0177, z: 0.0066}
+  m_LocalPosition: {x: 2.08, y: 0.03, z: 13.3247}
+  m_LocalScale: {x: 22.24751, y: 0.03387957, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 1653532329}
   - component: {fileID: 1653532328}
   m_Layer: 0
-  m_Name: Border4
+  m_Name: NorthBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1113,8 +1113,8 @@ Transform:
   m_GameObject: {fileID: 1653532327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.019, z: 24.492}
-  m_LocalScale: {x: 4.2718, y: 0.0177, z: 0.0066}
+  m_LocalPosition: {x: -0.04183, y: 0.03, z: 24.437}
+  m_LocalScale: {x: 4.255485, y: 0.03387957, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1132,7 +1132,7 @@ GameObject:
   - component: {fileID: 1918265702}
   - component: {fileID: 1918265701}
   m_Layer: 0
-  m_Name: Border
+  m_Name: SouthBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1218,8 +1218,8 @@ Transform:
   m_GameObject: {fileID: 1918265700}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.019, z: 2.18}
-  m_LocalScale: {x: 4.2718, y: 0.0177, z: 0.0066}
+  m_LocalPosition: {x: -0.0392, y: 0.03, z: 2.209}
+  m_LocalScale: {x: 4.2501845, y: 0.03387957, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1626,9 +1626,9 @@ SceneRoots:
   - {fileID: 1136493767}
   - {fileID: 705098310}
   - {fileID: 1918265704}
-  - {fileID: 1653532331}
   - {fileID: 1606655052}
   - {fileID: 295748694}
+  - {fileID: 1653532331}
   - {fileID: 390714397}
   - {fileID: 2029069278}
   - {fileID: 601240980}

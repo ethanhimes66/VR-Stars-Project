@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HoleTwo.unity
     guid: 88afa1e60cdb3a64b9c4fb2556e2d51b
+  - enabled: 1
+    path: Assets/Scenes/HoleThree.unity
+    guid: e2ddb170e89d64643a5bc0a6d1bbf010
+  - enabled: 1
+    path: Assets/Scenes/HoleFour.unity
+    guid: 81dd1e2b7daef87408124a8bea6172dc
+  - enabled: 1
+    path: Assets/Scenes/HoleFive.unity
+    guid: 05135f38bff709e46974db03e202e2ee
+  - enabled: 1
+    path: Assets/Scenes/HoleSix.unity
+    guid: 3479211e12b76f545889f728abd428a6
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 072a1a8706e9a1d49851acb59f5f6a23, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 67c4d9fdb5561b049b44d6fb0f86bdc7, type: 2}
