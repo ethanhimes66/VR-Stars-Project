@@ -11,22 +11,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HoleOne.unity
     guid: f29a84d5c9b4bde4b88f901ef8f57f3e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleTwo.unity
     guid: 88afa1e60cdb3a64b9c4fb2556e2d51b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleThree.unity
     guid: e2ddb170e89d64643a5bc0a6d1bbf010
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleFour.unity
     guid: 81dd1e2b7daef87408124a8bea6172dc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleFive.unity
     guid: 05135f38bff709e46974db03e202e2ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleSix.unity
     guid: 3479211e12b76f545889f728abd428a6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleSeven.unity
     guid: 74593f8d04e88124c932b7301d95ef4e
   m_configObjects:
