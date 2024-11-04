@@ -29,13 +29,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HoleSeven.unity
     guid: 74593f8d04e88124c932b7301d95ef4e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleEight.unity
     guid: b2c7ba4c70c55a44d8191ee58a03b4b5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HoleNine.unity
     guid: 449e4595ddbc4cd44a0fac2594029e9c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Finale.unity
     guid: d87525f8acbda1848bbe96ccb2e8cfbf
   m_configObjects:
