@@ -964,7 +964,6 @@ Transform:
   m_PrefabInstance: {fileID: 1206974788}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1206974795
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -977,7 +976,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -988,14 +986,12 @@ MonoBehaviour:
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
   m_StartingTargetFilter: {fileID: 0}
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls: []
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1004,7 +1000,6 @@ MonoBehaviour:
       m_Calls: []
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_OnHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1060,14 +1055,12 @@ MonoBehaviour:
   m_PhysicsTriggerInteraction: 1
 --- !u!135 &1206974796
 SphereCollider:
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859042369}
   m_Material: {fileID: 0}
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1081,7 +1074,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
->>>>>>> 237c7db4b9e169a4ec396c9cca89617b5d24f089
 --- !u!1 &1606655048
 GameObject:
   m_ObjectHideFlags: 0
