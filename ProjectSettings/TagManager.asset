@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hole
   - Golf Club
+  - Golf Ball
+  - Border
   layers:
   - Default
   - TransparentFX

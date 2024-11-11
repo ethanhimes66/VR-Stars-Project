@@ -1,224 +1,72 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-// public class Hand : MonoBehaviour
-// {
-//     //Steam VR
-//     private SteamVR_TrackedObject trackedObject;
-//     private SteamVR_Controller.Device device;
-//     //Game objects
-//     public GameObject golfClub;
-//     public GameObject golfClubHead;
-//     public GameObject golfClubShaft;
-//     public GameObject golfBall;
-//     public GameObject playerArea;
-//     public GameObject playerHead;
-//     public GameObject indicator;
-//     //Components
-//     LineRenderer laser;
-//     //Variables
-//     private bool shift;
-//     private Vector3 shiftStart;
-//     private Vector3 shiftEnd;
-//     private float shiftStartTime;
-//     public float shiftDuration;
-//     private bool ballFollowLaser;
-//     private string mode;
+public class Hand : MonoBehaviour
+{
+    public GameObject golfClubPrefab;  // Drag your golf club prefab here in the Inspector
 
-//     void Start()
-//     {
-//         //TO DO: Parent the golf club to the controller for the initial mode switch
-//         golfClub.SetActive(false);
-//         trackedObject = GetComponent<SteamVR_TrackedObject>();
-//         laser = gameObject.GetComponent<LineRenderer>();
-//         laser.material.color = Color.red;
-//         laser.enabled = false;
-//         indicator.SetActive(false);
-//         shift = false;
-//         ballFollowLaser = false;
-//         mode = "teleport";
-//     }
+    private GameObject spawnedGolfClub;
+    private ActionBasedController controller;
+    public Vector3 positionOffset = new Vector3(0f, -0.2f, 0.5f); // Adjust these values to position in front of the controller
+    public Vector3 rotationOffset = new Vector3(0f, -90f, 0f);    // Adjust these values for holding angle
 
-//     void Update()
-//     {
-//         device = SteamVR_Controller.Input((int)trackedObject.index);
+    void Start()
+    {
+        controller = GetComponent<ActionBasedController>();
+    }
 
-//         //Change modes
-//         if (device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-//         {
-//             ChangeMode();
-//         }
+    void Update()
+    {
+        if (controller)
+        {
+            if (controller.selectAction.action.ReadValue<float>() > 0.1f && spawnedGolfClub == null)
+            {
+                SpawnGolfClub();
+            }
+            else if (controller.selectAction.action.ReadValue<float>() <= 0.1f && spawnedGolfClub != null)
+            {
+                DespawnGolfClub();
+            }
+        }
+    }
 
-//         //Teleport mode actions
-//         if (mode == "teleport")
-//         {
-//             //Project ray
-//             RaycastHit hit;
-//             Ray ray = new Ray(transform.position, transform.forward);
-//             if (Physics.Raycast(ray, out hit))
-//             {
-//                 //Show laser
-//                 laser.SetPosition(0, ray.origin);
-//                 laser.SetPosition(1, ray.GetPoint(hit.distance));
-//                 laser.enabled = true;
-//                 //If hit ground or putt area and ball not following
-//                 if (hit.collider.tag == "Ground" || (hit.collider.tag == "Putt Area" && !ballFollowLaser))
-//                 {
-//                     //Show indicator
-//                     indicator.SetActive(true);
-//                     indicator.transform.position = hit.point;
-//                     //If press
-//                     if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
-//                     {
-//                         //Teleport
-//                         Shift(hit.point);
-//                     }
-//                 }
-//                 if (hit.collider.tag != "Ground" && hit.collider.tag != "Putt Area")
-//                 {
-//                     indicator.SetActive(false);
-//                 }
-//             }
-//             //If nothing hit
-//             else
-//             {
-//                 laser.enabled = false;
-//                 indicator.SetActive(false);
-//             }
-            
-//         }
+  
 
-//         //Putt mode actions
-//         if (mode == "putt")
-//         {
-//             //Project ray
-//             Ray ray = new Ray(transform.position, transform.forward);
-//             //If press
-//             if (device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad)) 
-//             {
-//                 //If angle over 45
-//                 if (Vector3.Angle((ray.GetPoint(1) - ray.origin), Vector3.down) <= 45)
-//                 {
-//                     DestroyGolfClub();
-//                     //Debug.Log("Spawn");
-//                     //Spawn golf club
-//                     SpawnGolfClub();
-//                 }
-//                 else
-//                 {
-                    
-//                     DestroyGolfClub();
-//                     //Spawn golf club
-//                     golfClub.SetActive(true);
-//                 }
-//             }
-//         }
+    void SpawnGolfClub()
+    {
+        if (golfClubPrefab != null)
+        {
+            // Calculate spawn position with an offset in front of the controller
+            Vector3 spawnPosition = transform.position + transform.forward * positionOffset.z
+                                + transform.right * positionOffset.x
+                                + transform.up * positionOffset.y;
 
-//         //Shift
-//         if (shift)
-//         {
-//             float distCovered = (Time.time - shiftStartTime) / shiftDuration;
-//             playerArea.transform.position = Vector3.Lerp(shiftStart, shiftEnd, distCovered);
-//             if (playerArea.transform.position == shiftEnd) shift = false;
-//         }
+            // Calculate spawn rotation with an additional rotation offset
+            Quaternion spawnRotation = transform.rotation * Quaternion.Euler(rotationOffset);
 
-//         //Ball
-//         if (device.GetPressDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
-//         {
-//             golfBall.GetComponent<GolfBall>().Reset();
-//         }
-//     }
+            spawnedGolfClub = Instantiate(golfClubPrefab, spawnPosition, spawnRotation);
 
-//     //Enables shift mode
-//     private void Shift(Vector3 dest)
-//     {
-//         shift = true;
-//         shiftStart = playerArea.transform.position;
-//         shiftEnd = CalcNewPos(dest);
-//         shiftStartTime = Time.time;
-//     }
+            // Make it kinematic so it doesn't fall
+            Rigidbody rb = spawnedGolfClub.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
 
-//     //Calculates camera rig position to match player position to shift destination
-//     private Vector3 CalcNewPos(Vector3 point)
-//     {
-//         Vector3 diff = new Vector3(playerHead.transform.position.x, 0.0F, playerHead.transform.position.z) - playerArea.transform.position;
-//         return new Vector3(point.x - diff.x, point.y, point.z - diff.z);
-//     }
+            // Parent the golf club to the controller so it follows it
+            spawnedGolfClub.transform.parent = transform;
+        }
+    }
 
-//     //Spawns and scales club based on distance of controller from the ground
-//     private void SpawnGolfClub()
-//     {
-//         RaycastHit hit;
-//         Ray ray = new Ray(transform.position, transform.forward);
 
-//         if (Physics.Raycast(ray, out hit))
-//         {
-//             //Get ground position
-//             Vector3 ground = new Vector3();
-//             ground = ray.GetPoint(hit.distance);
-//             //Get wrist position
-//             Vector3 hand = new Vector3();
-//             hand = transform.position;
-//             //Calculate golf club length
-//             float golfClubLength = Vector3.Distance(hand, ground);
-//             //Calculate golf club midpoint position
-//             Vector3 golfClubMidpoint = new Vector3();
-//             golfClubMidpoint = (hand + ground) / 2;
-//             //Activate and position golf club
-//             golfClub.SetActive(true);
-//             golfClub.transform.position = golfClubMidpoint;
-//             golfClub.transform.localScale = new Vector3(golfClub.transform.localScale.x, golfClub.transform.localScale.y, golfClubLength - 0.1F);
-//             golfClub.transform.rotation = transform.rotation;
-//             golfClub.transform.SetParent(transform);
-//         }
-//     }
 
-//     private void DestroyGolfClub()
-//     {
-//         golfClub.SetActive(false);
-//     }
 
-//     public void Vibrate()
-//     {
-//         SteamVR_Controller.Input((int)trackedObject.index).TriggerHapticPulse(2000);
-//     }
-
-//     private void ChangeMode()
-//     {
-//         if (mode == "putt")
-//         {
-//             mode = "teleport";
-//             golfClub.SetActive(false);
-//             return;
-//         }
-//         if (mode == "teleport")
-//         {
-//             mode = "putt";
-//             laser.enabled = false;
-//             indicator.SetActive(false);
-//             ballFollowLaser = false;
-//             golfClub.SetActive(true);
-//         }
-//     }
-
-//     private void BallFollowLaser(bool val)
-//     {
-//         if (val == true)
-//         {
-//             ballFollowLaser = true;
-//             golfBall.GetComponent<SphereCollider>().enabled = false;
-//             golfBall.GetComponent<Rigidbody>().useGravity = false;
-//             Debug.Log("Collider off");
-//             //TO DO: Add layer mask to ignore ball
-//         }
-//         else
-//         {
-//             ballFollowLaser = false;
-//             golfBall.GetComponent<SphereCollider>().enabled = true;
-//             golfBall.GetComponent<Rigidbody>().useGravity = true;
-//             Debug.Log("Collider on");
-//             //TO DO: Remove layer mask to ignore ball
-//         }
-//     }
-// }
+    void DespawnGolfClub()
+    {
+        if (spawnedGolfClub != null)
+        {
+            Destroy(spawnedGolfClub);
+            spawnedGolfClub = null;
+        }
+    }
+}

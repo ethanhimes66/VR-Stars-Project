@@ -6,9 +6,7 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {
     public TextMeshProUGUI scoreBoard;
-    public TextMeshProUGUI finalScoreBoard;
     public GameObject puttArea;
-    public int holeNum;
     public int holePar;
     public int holeScore;
 
@@ -17,7 +15,6 @@ public class Hole : MonoBehaviour
         //Initiate score and scoreboard text
         holeScore = 0;
         scoreBoard.text = holePar + "\n" + holeScore;
-        // finalScoreBoard.text = holeNum + "\n" + holePar + "\n" + holeScore;
     }
 
     //Update score and scoreboard text
@@ -25,7 +22,6 @@ public class Hole : MonoBehaviour
     {
         holeScore = num;
         scoreBoard.text = holePar + "\n" + holeScore;
-        // finalScoreBoard.text = holeNum + "\n" + holePar + "\n" + holeScore;
     }
 
     //Returns the starting position of the ball
