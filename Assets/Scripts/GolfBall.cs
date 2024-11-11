@@ -50,7 +50,7 @@ public class GolfBall : MonoBehaviour
             // Intensity of the vibration (0.0f to 1.0f)
             float intensity = 0.5f;
             // Duration of the vibration (in seconds)
-            float duration = 1f;
+            float duration = 0.3f;
 
             // Send a haptic impulse to the controller
             controller.SendHapticImpulse(0, intensity, duration);
@@ -65,6 +65,7 @@ public class GolfBall : MonoBehaviour
             hasCollided = true;
 
             holeScore++;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
             Debug.Log(holeScore);
             // Changes how fast the ball gets hit when colliding with golf club
             GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.5F;
@@ -88,9 +89,6 @@ public class GolfBall : MonoBehaviour
         {
             //Turn off collider
             GetComponent<SphereCollider>().enabled = false;
-
-            // Prints the final stroke count to the scoreboard
-            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
 
             Debug.Log(PrintScore());
             Destroy(gameObject);

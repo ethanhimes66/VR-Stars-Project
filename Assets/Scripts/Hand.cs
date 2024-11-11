@@ -19,11 +19,11 @@ public class Hand : MonoBehaviour
     {
         if (controller)
         {
-            if (controller.selectAction.action.ReadValue<float>() > 0.1f && spawnedGolfClub == null)
+            if (controller.activateAction.action.ReadValue<float>() > 0.1f && spawnedGolfClub == null)
             {
                 SpawnGolfClub();
             }
-            else if (controller.selectAction.action.ReadValue<float>() <= 0.1f && spawnedGolfClub != null)
+            else if (controller.activateAction.action.ReadValue<float>() <= 0.1f && spawnedGolfClub != null)
             {
                 DespawnGolfClub();
             }
