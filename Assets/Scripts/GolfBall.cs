@@ -75,8 +75,7 @@ public class GolfBall : MonoBehaviour
             TriggerHaptic(rightController);
 
             StartCoroutine(ResetCollisionFlag());
-        }  else if (other.tag == "Water Trap") {
-            Debug.Log("Touching water");
+        }  else if (other.tag == "Water Trap" || other.tag == "Rough") {
             
             // Reset to the previous position and add 2 penalty strokes
             transform.position = previousBallPos;

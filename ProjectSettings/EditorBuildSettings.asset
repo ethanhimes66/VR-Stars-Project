@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HoleThree.unity
     guid: e2ddb170e89d64643a5bc0a6d1bbf010
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/HoleFour.unity
     guid: 81dd1e2b7daef87408124a8bea6172dc
   - enabled: 0
