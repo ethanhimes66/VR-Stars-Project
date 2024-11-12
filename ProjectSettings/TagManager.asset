@@ -8,6 +8,7 @@ TagManager:
   - Golf Club
   - Golf Ball
   - Border
+  - Water Trap
   layers:
   - Default
   - TransparentFX

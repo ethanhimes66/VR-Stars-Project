@@ -13,6 +13,7 @@ public class GolfBall : MonoBehaviour
     private GameObject[] holes;
     private Vector3 holePos;
     private Vector3 ballPos;
+    private Vector3 previousBallPos;
     private float holeRadius;
     private int holePar;
     private int holeScore;
@@ -64,14 +65,28 @@ public class GolfBall : MonoBehaviour
         if (other.tag == "Golf Club" && !hasCollided) {
             hasCollided = true;
 
+            previousBallPos = transform.position;
+
             holeScore++;
             holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
             Debug.Log(holeScore);
             // Changes how fast the ball gets hit when colliding with golf club
-            GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.5F;
+            GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.4f;
             TriggerHaptic(rightController);
 
             StartCoroutine(ResetCollisionFlag());
+        }  else if (other.tag == "Water Trap") {
+            Debug.Log("Touching water");
+            
+            // Reset to the previous position and add 2 penalty strokes
+            transform.position = previousBallPos;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+            holeScore += 2;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(previousBallPos);
+            Debug.Log("Penalty! Stroke count increased by 2.");
         }
     }
 
@@ -99,6 +114,7 @@ public class GolfBall : MonoBehaviour
     {
         if (num >= 0 && num <= holes.Length - 1 && holes[num] != null)
         {
+            //Set ball position
             ballPos = holes[num].GetComponent<Hole>().GetBallPos() + new Vector3(0, transform.localScale.y / 2, 0);
             //Set hole position
             holePos = holes[num].transform.position;
