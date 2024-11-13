@@ -10,6 +10,7 @@ public class GolfClub : MonoBehaviour
     private Vector3 vel;
     private float velMag;
     public float maxVel;
+    public bool isChipper;
 
     void Start()
     {

@@ -60,34 +60,50 @@ public class GolfBall : MonoBehaviour
     }
 
     
-    private void OnTriggerEnter(Collider other)
+private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Golf Club") && !hasCollided) 
     {
-        if (other.tag == "Golf Club" && !hasCollided) {
-            hasCollided = true;
+        hasCollided = true;
+        previousBallPos = transform.position;
 
-            previousBallPos = transform.position;
+        holeScore++;
+        holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+        Debug.Log(holeScore);
 
-            holeScore++;
-            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
-            Debug.Log(holeScore);
-            // Changes how fast the ball gets hit when colliding with golf club
-            GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.4f;
-            TriggerHaptic(rightController);
+        // Get the velocity from the club
+        Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
 
-            StartCoroutine(ResetCollisionFlag());
-        }  else if (other.tag == "Water Trap" || other.tag == "Rough") {
-            
-            // Reset to the previous position and add 2 penalty strokes
-            transform.position = previousBallPos;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
-            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
-            holeScore += 2;
-            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
-            Debug.Log(previousBallPos);
-            Debug.Log("Penalty! Stroke count increased by 2.");
+        // Check if the club is a chipper
+        if (other.GetComponent<GolfClub>().isChipper) 
+        {
+            // Apply upward force for chipper
+            Vector3 chippedVelocity = new Vector3(clubVelocity.x, clubVelocity.y + 5f, clubVelocity.z) * 1.2f;
+            GetComponent<Rigidbody>().velocity = chippedVelocity;
+        } 
+        else 
+        {
+            // Regular putt with no lift
+            GetComponent<Rigidbody>().velocity = clubVelocity * 1.4f;
         }
+
+        // Trigger haptic feedback for right controller
+        TriggerHaptic(rightController);
+
+        StartCoroutine(ResetCollisionFlag());
+    }  
+    else if (other.CompareTag("Water Trap") || other.CompareTag("Rough")) 
+    {
+        transform.position = previousBallPos;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+        holeScore += 2;
+        holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+        Debug.Log(previousBallPos);
+        Debug.Log("Penalty! Stroke count increased by 2.");
     }
+}
 
     private IEnumerator ResetCollisionFlag()
     {
