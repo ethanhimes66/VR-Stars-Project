@@ -189,6 +189,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2873617030120751458, guid: 534053b397750e74588f25f926e8da72, type: 3}
   m_PrefabInstance: {fileID: 34931334}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &43719123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.064
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.666
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.624
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5363000766588289459, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880220164006193061, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+      propertyPath: m_Name
+      value: Chipper
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
 --- !u!1 &295748690
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,7 +2142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2bec01a9f46a9408d42933b636d7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  golfClubPrefab: {fileID: 600097294}
+  clubPrefabs:
+  - {fileID: 600097294}
+  - {fileID: 2024907804}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!20 &1212403081 stripped
@@ -2326,7 +2385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2bec01a9f46a9408d42933b636d7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  golfClubPrefab: {fileID: 600097294}
+  clubPrefabs:
+  - {fileID: 600097294}
+  - {fileID: 2024907804}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!1 &1653532327
@@ -2605,6 +2666,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1704871681006669413, guid: a543ce027c5ec3a4788c4f633673c3de, type: 3}
   m_PrefabInstance: {fileID: 1922321140}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2024907804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7880220164006193061, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
+  m_PrefabInstance: {fileID: 43719123}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2029069274
 GameObject:
@@ -3119,3 +3185,4 @@ SceneRoots:
   - {fileID: 8693741810392000552}
   - {fileID: 306544107}
   - {fileID: 1154579453}
+  - {fileID: 43719123}
