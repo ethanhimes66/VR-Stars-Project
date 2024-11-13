@@ -3,11 +3,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Hand : MonoBehaviour
 {
-    public GameObject golfClubPrefab;  // Drag your golf club prefab here in the Inspector
-
+    public GameObject[] clubPrefabs; // Array for different club prefabs (set golf club and chipper in Inspector)
+    
+    private int currentClubIndex = 0; // Tracks which club is currently selected
     private GameObject spawnedGolfClub;
     private ActionBasedController controller;
-    public Vector3 positionOffset = new Vector3(0f, -0.2f, 0.5f); // Adjust these values to position in front of the controller
+    public Vector3 positionOffset = new Vector3(0f, -0.2f, 0.5f); // Adjust these values for position in front of the controller
     public Vector3 rotationOffset = new Vector3(0f, -90f, 0f);    // Adjust these values for holding angle
 
     void Start()
@@ -19,6 +20,7 @@ public class Hand : MonoBehaviour
     {
         if (controller)
         {
+            // Check if the trigger button is pressed to spawn or despawn the current club
             if (controller.activateAction.action.ReadValue<float>() > 0.1f && spawnedGolfClub == null)
             {
                 SpawnGolfClub();
@@ -27,39 +29,43 @@ public class Hand : MonoBehaviour
             {
                 DespawnGolfClub();
             }
+
+            // Check if the grip button is pressed to cycle the club type
+            if (controller.selectAction.action.triggered && spawnedGolfClub == null)
+            {
+                CycleClub();
+            }
         }
     }
 
-  
+    void CycleClub()
+    {
+        // Cycle to the next club in the array
+        currentClubIndex = (currentClubIndex + 1) % clubPrefabs.Length;
+    }
 
     void SpawnGolfClub()
     {
-        if (golfClubPrefab != null)
+        // Ensure the current club prefab exists
+        if (clubPrefabs.Length > 0 && clubPrefabs[currentClubIndex] != null)
         {
-            // Calculate spawn position with an offset in front of the controller
             Vector3 spawnPosition = transform.position + transform.forward * positionOffset.z
-                                + transform.right * positionOffset.x
-                                + transform.up * positionOffset.y;
+                                    + transform.right * positionOffset.x
+                                    + transform.up * positionOffset.y;
 
-            // Calculate spawn rotation with an additional rotation offset
             Quaternion spawnRotation = transform.rotation * Quaternion.Euler(rotationOffset);
 
-            spawnedGolfClub = Instantiate(golfClubPrefab, spawnPosition, spawnRotation);
+            spawnedGolfClub = Instantiate(clubPrefabs[currentClubIndex], spawnPosition, spawnRotation);
 
-            // Make it kinematic so it doesn't fall
             Rigidbody rb = spawnedGolfClub.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.isKinematic = true;
             }
 
-            // Parent the golf club to the controller so it follows it
             spawnedGolfClub.transform.parent = transform;
         }
     }
-
-
-
 
     void DespawnGolfClub()
     {
