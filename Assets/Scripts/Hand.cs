@@ -3,10 +3,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Hand : MonoBehaviour
 {
-    public GameObject[] clubPrefabs; // Array for different club prefabs (set golf club and chipper in Inspector)
-    
-    private int currentClubIndex = 0; // Tracks which club is currently selected
+    public GameObject golfClubPrefab;  // Drag your golf club prefab here in the Inspector
+    public GameObject chipperPrefab;
+
     private GameObject spawnedGolfClub;
+    private GameObject spawnedChipper;
     private ActionBasedController controller;
     public Vector3 positionOffset = new Vector3(0f, -0.2f, 0.5f); // Adjust these values for position in front of the controller
     public Vector3 rotationOffset = new Vector3(0f, -90f, 0f);    // Adjust these values for holding angle
@@ -29,11 +30,13 @@ public class Hand : MonoBehaviour
             {
                 DespawnGolfClub();
             }
-
-            // Check if the grip button is pressed to cycle the club type
-            if (controller.selectAction.action.triggered && spawnedGolfClub == null)
+            else if (controller.selectAction.action.ReadValue<float>() > 0.1f && spawnedChipper == null)
             {
-                CycleClub();
+                SpawnChipper();
+            }
+            else if (controller.selectAction.action.ReadValue<float>() <= 0.1f && spawnedChipper != null)
+            {
+                DespawnChipper();
             }
         }
     }
@@ -67,6 +70,32 @@ public class Hand : MonoBehaviour
         }
     }
 
+    void SpawnChipper()
+    {
+        if (chipperPrefab != null)
+        {
+            // Calculate spawn position with an offset in front of the controller
+            Vector3 spawnPosition = transform.position + transform.forward * positionOffset.z
+                                + transform.right * positionOffset.x
+                                + transform.up * positionOffset.y;
+
+            // Calculate spawn rotation with an additional rotation offset
+            Quaternion spawnRotation = transform.rotation * Quaternion.Euler(rotationOffset);
+
+            spawnedChipper = Instantiate(chipperPrefab, spawnPosition, spawnRotation);
+
+            // Make it kinematic so it doesn't fall
+            Rigidbody rb = spawnedChipper.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+
+            // Parent the golf club to the controller so it follows it
+            spawnedChipper.transform.parent = transform;
+        }
+    }
+
     void DespawnGolfClub()
     {
         if (spawnedGolfClub != null)
@@ -75,4 +104,14 @@ public class Hand : MonoBehaviour
             spawnedGolfClub = null;
         }
     }
+
+    void DespawnChipper()
+    {
+        if (spawnedChipper != null)
+        {
+            Destroy(spawnedChipper);
+            spawnedChipper = null;
+        }
+    }
+
 }
