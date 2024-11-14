@@ -74,17 +74,41 @@ private void OnTriggerEnter(Collider other)
         // Get the velocity from the club
         Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
 
-        // Check if the club is a chipper
-        if (other.GetComponent<GolfClub>().isChipper) 
-        {
-            // Apply upward force for chipper
-            Vector3 chippedVelocity = new Vector3(clubVelocity.x, clubVelocity.y + 5f, clubVelocity.z) * 1.2f;
-            GetComponent<Rigidbody>().velocity = chippedVelocity;
-        } 
-        else 
-        {
-            // Regular putt with no lift
-            GetComponent<Rigidbody>().velocity = clubVelocity * 1.4f;
+            StartCoroutine(ResetCollisionFlag());
+
+        } else if (other.tag == "Chipper" && !hasCollided) {
+            hasCollided = true;
+
+            previousBallPos = transform.position;
+
+            holeScore++;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(holeScore);
+
+            // Get the current velocity from the club
+            Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
+        
+            // Define an upward diagonal force (you can tweak the 'y' component to control the height)
+            Vector3 upwardForce = new Vector3(0, 3, 0); // This adds an upward motion, adjust '1' to increase/decrease angle
+        
+            // Apply the velocity from the club, modified with the upward force
+            GetComponent<Rigidbody>().velocity = clubVelocity * 1.4f + upwardForce; // Combine both velocities
+
+            TriggerHaptic(rightController);
+
+            StartCoroutine(ResetCollisionFlag());
+
+        } else if (other.tag == "Water Trap" || other.tag == "Rough") {
+            
+            // Reset to the previous position and add 2 penalty strokes
+            transform.position = previousBallPos;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
+            holeScore += 2;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(previousBallPos);
+            Debug.Log("Penalty! Stroke count increased by 2.");
         }
 
         // Trigger haptic feedback for right controller
