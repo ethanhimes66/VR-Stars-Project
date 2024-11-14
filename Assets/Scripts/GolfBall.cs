@@ -75,7 +75,30 @@ public class GolfBall : MonoBehaviour
             TriggerHaptic(rightController);
 
             StartCoroutine(ResetCollisionFlag());
-        }  else if (other.tag == "Water Trap" || other.tag == "Rough") {
+
+        } else if (other.tag == "Chipper" && !hasCollided) {
+            hasCollided = true;
+
+            previousBallPos = transform.position;
+
+            holeScore++;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(holeScore);
+
+            // Get the current velocity from the club
+            Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
+        
+            // Define an upward diagonal force (you can tweak the 'y' component to control the height)
+            Vector3 upwardForce = new Vector3(0, 3, 0); // This adds an upward motion, adjust '1' to increase/decrease angle
+        
+            // Apply the velocity from the club, modified with the upward force
+            GetComponent<Rigidbody>().velocity = clubVelocity * 1.4f + upwardForce; // Combine both velocities
+
+            TriggerHaptic(rightController);
+
+            StartCoroutine(ResetCollisionFlag());
+
+        } else if (other.tag == "Water Trap" || other.tag == "Rough") {
             
             // Reset to the previous position and add 2 penalty strokes
             transform.position = previousBallPos;
