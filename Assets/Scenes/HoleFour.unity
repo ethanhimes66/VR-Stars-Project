@@ -1480,7 +1480,7 @@ GameObject:
   - component: {fileID: 800771858}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Rough
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2618,9 +2618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2bec01a9f46a9408d42933b636d7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clubPrefabs:
-  - {fileID: 1917414828}
-  - {fileID: 1667407337}
+  golfClubPrefab: {fileID: 0}
+  chipperPrefab: {fileID: 0}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!114 &1049938093
@@ -2635,9 +2634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2bec01a9f46a9408d42933b636d7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clubPrefabs:
-  - {fileID: 1917414828}
-  - {fileID: 1667407337}
+  golfClubPrefab: {fileID: 0}
+  chipperPrefab: {fileID: 0}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!1001 &1239356708
@@ -3312,11 +3310,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
---- !u!1 &1667407337 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7880220164006193061, guid: 93396f8bece9b34418807e98a832d15e, type: 3}
-  m_PrefabInstance: {fileID: 1667407336}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1672882852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,11 +3802,6 @@ MeshCollider:
 --- !u!4 &1899249811 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1667464539645825199, guid: 4038719c7cc2d3a4ba9ebcfaca8a4b58, type: 3}
-  m_PrefabInstance: {fileID: 741856484}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1917414828 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1853428056246960173, guid: 4038719c7cc2d3a4ba9ebcfaca8a4b58, type: 3}
   m_PrefabInstance: {fileID: 741856484}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1920658312

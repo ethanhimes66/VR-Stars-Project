@@ -60,22 +60,22 @@ public class GolfBall : MonoBehaviour
     }
 
     
-private void OnTriggerEnter(Collider other)
-{
-    if (other.CompareTag("Golf Club") && !hasCollided) 
+    private void OnTriggerEnter(Collider other)
     {
-        hasCollided = true;
-        previousBallPos = transform.position;
+        if (other.CompareTag("Golf Club") && !hasCollided) 
+        {
+            hasCollided = true;
 
-        holeScore++;
-        holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
-        Debug.Log(holeScore);
+            previousBallPos = transform.position;
 
-        // Get the velocity from the club
-        Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
+            holeScore++;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(holeScore);
+            // Changes how fast the ball gets hit when colliding with golf club
+            GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.4f;
+            TriggerHaptic(rightController);
 
             StartCoroutine(ResetCollisionFlag());
-
         } else if (other.tag == "Chipper" && !hasCollided) {
             hasCollided = true;
 
@@ -85,13 +85,10 @@ private void OnTriggerEnter(Collider other)
             holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
             Debug.Log(holeScore);
 
-            // Get the current velocity from the club
             Vector3 clubVelocity = other.GetComponent<GolfClub>().getVelocity();
         
-            // Define an upward diagonal force (you can tweak the 'y' component to control the height)
-            Vector3 upwardForce = new Vector3(0, 3, 0); // This adds an upward motion, adjust '1' to increase/decrease angle
+            Vector3 upwardForce = new Vector3(0, 3, 0); // This adds an upward motion
         
-            // Apply the velocity from the club, modified with the upward force
             GetComponent<Rigidbody>().velocity = clubVelocity * 1.4f + upwardForce; // Combine both velocities
 
             TriggerHaptic(rightController);
@@ -115,19 +112,7 @@ private void OnTriggerEnter(Collider other)
         TriggerHaptic(rightController);
 
         StartCoroutine(ResetCollisionFlag());
-    }  
-    else if (other.CompareTag("Water Trap") || other.CompareTag("Rough")) 
-    {
-        transform.position = previousBallPos;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-
-        holeScore += 2;
-        holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
-        Debug.Log(previousBallPos);
-        Debug.Log("Penalty! Stroke count increased by 2.");
     }
-}
 
     private IEnumerator ResetCollisionFlag()
     {

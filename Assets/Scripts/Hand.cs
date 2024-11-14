@@ -41,16 +41,10 @@ public class Hand : MonoBehaviour
         }
     }
 
-    void CycleClub()
-    {
-        // Cycle to the next club in the array
-        currentClubIndex = (currentClubIndex + 1) % clubPrefabs.Length;
-    }
-
     void SpawnGolfClub()
     {
         // Ensure the current club prefab exists
-        if (clubPrefabs.Length > 0 && clubPrefabs[currentClubIndex] != null)
+        if (golfClubPrefab != null)
         {
             Vector3 spawnPosition = transform.position + transform.forward * positionOffset.z
                                     + transform.right * positionOffset.x
@@ -58,7 +52,7 @@ public class Hand : MonoBehaviour
 
             Quaternion spawnRotation = transform.rotation * Quaternion.Euler(rotationOffset);
 
-            spawnedGolfClub = Instantiate(clubPrefabs[currentClubIndex], spawnPosition, spawnRotation);
+            spawnedGolfClub = Instantiate(golfClubPrefab, spawnPosition, spawnRotation);
 
             Rigidbody rb = spawnedGolfClub.GetComponent<Rigidbody>();
             if (rb != null)

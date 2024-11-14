@@ -1199,6 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   golfClubPrefab: {fileID: 736956368}
+  chipperPrefab: {fileID: 0}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!114 &342591961
@@ -1214,6 +1215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   golfClubPrefab: {fileID: 736956368}
+  chipperPrefab: {fileID: 0}
   positionOffset: {x: 0.15, y: 0.15, z: 0.2}
   rotationOffset: {x: 0, y: 90, z: -90}
 --- !u!1001 &375388507
@@ -1393,7 +1395,7 @@ GameObject:
   - component: {fileID: 397057707}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Rough
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
