@@ -1,0 +1,45 @@
+{
+    "name": "RecordOnButtonPress",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "c5856285-fc9a-4331-a796-ff38e4adeb28",
+            "actions": [
+                {
+                    "name": "RecordToggle",
+                    "type": "Button",
+                    "id": "6806db2c-2bb5-43c3-afdf-869a02858a5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "04afddfa-88f4-46f0-a382-a0921a09aceb",
+                    "path": "<OculusTouchController>/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RecordToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04c207ea-6427-4b10-b2f3-49e354512b5e",
+                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RecordToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

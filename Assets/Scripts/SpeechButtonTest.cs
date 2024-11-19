@@ -11,6 +11,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class SpeechButtonTest : MonoBehaviour
 {
     private ActionBasedController controller;
+    [SerializeField] private InputActionProperty recordToggle;
     [SerializeField] private TextMeshProUGUI text;
 
     private AudioClip clip;
@@ -19,13 +20,22 @@ public class SpeechButtonTest : MonoBehaviour
 
     private void Start() {
         controller = GetComponent<ActionBasedController>();
-        controller.selectAction.action.performed += context => StartRecording();
-        controller.selectAction.action.canceled += context => StopRecording();
+        // controller.selectAction.action.performed += context => StartRecording();
+        // controller.selectAction.action.canceled += context => StopRecording();
+        recordToggle.action.performed += context => ToggleRecording();
     }
 
     private void Update() {
         if (recording && Microphone.GetPosition(null) >= clip.samples) {
             StopRecording();
+        }
+    }
+
+    private void ToggleRecording() {
+        if (recording) {
+            StopRecording();
+        } else {
+            StartRecording();
         }
     }
 
