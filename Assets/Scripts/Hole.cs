@@ -9,6 +9,7 @@ public class Hole : MonoBehaviour
     public GameObject puttArea;
     public int holePar;
     public int holeScore;
+    public AudioSource holeSound;
 
     void Start()
     {
@@ -27,5 +28,15 @@ public class Hole : MonoBehaviour
     //Returns the starting position of the ball
     public Vector3 GetBallPos() {
         return puttArea.transform.position;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Golf Ball")) {
+            holeSound.Play();
+
+            GameObject.FindWithTag("Golf Ball").GetComponent<SphereCollider>().enabled = false;
+
+            Destroy(GameObject.FindWithTag("Golf Ball"));
+        }
     }
 }

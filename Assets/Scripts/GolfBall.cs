@@ -22,6 +22,7 @@ public class GolfBall : MonoBehaviour
     private InputDevice rightController;
     private bool hasCollided = false;
 
+    public AudioSource hitSound;
     private void Start()
     {
         InitializeControllers();
@@ -51,7 +52,7 @@ public class GolfBall : MonoBehaviour
             // Intensity of the vibration (0.0f to 1.0f)
             float intensity = 0.5f;
             // Duration of the vibration (in seconds)
-            float duration = 0.3f;
+            float duration = 0.2f;
 
             // Send a haptic impulse to the controller
             controller.SendHapticImpulse(0, intensity, duration);
@@ -62,7 +63,7 @@ public class GolfBall : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Golf Club") && !hasCollided) 
+        if (other.tag == "Golf Club" && !hasCollided) 
         {
             hasCollided = true;
 
@@ -74,6 +75,8 @@ public class GolfBall : MonoBehaviour
             // Changes how fast the ball gets hit when colliding with golf club
             GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.4f;
             TriggerHaptic(rightController);
+
+            hitSound.Play();
 
             StartCoroutine(ResetCollisionFlag());
         } else if (other.tag == "Chipper" && !hasCollided) {
@@ -93,6 +96,8 @@ public class GolfBall : MonoBehaviour
 
             TriggerHaptic(rightController);
 
+            hitSound.Play();
+
             StartCoroutine(ResetCollisionFlag());
 
         } else if (other.tag == "Water Trap" || other.tag == "Rough") {
@@ -106,7 +111,10 @@ public class GolfBall : MonoBehaviour
             holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
             Debug.Log(previousBallPos);
             Debug.Log("Penalty! Stroke count increased by 2.");
-        }
+        } 
+        // else if (other.CompareTag("Hole")) {
+        //     holeSound.Play();
+        // }
 
         // Trigger haptic feedback for right controller
         TriggerHaptic(rightController);
@@ -124,14 +132,14 @@ public class GolfBall : MonoBehaviour
     private void Update()
     {
         //If past the edge of the hole
-        if (Vector3.Distance(transform.position, holePos) < holeRadius)
-        {
+        // if (Vector3.Distance(transform.position, holePos) < holeRadius)
+        // {
             //Turn off collider
-            GetComponent<SphereCollider>().enabled = false;
+            // GetComponent<SphereCollider>().enabled = false;
 
-            Debug.Log(PrintScore());
-            Destroy(gameObject);
-        }
+            // Debug.Log(PrintScore());
+            // Destroy(gameObject);
+        // }
     }
 
     public void GetHole(int num)
