@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using UnityEngine.XR;
+using TMPro;
 
 public class GolfBall : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class GolfBall : MonoBehaviour
     private float holeRadius;
     private int holePar;
     private int holeScore;
+
+    public TextMeshProUGUI npcTextBox;
+    private int hitValue;
+
+
     // Controllers for vibrations
     private InputDevice leftController;
     private InputDevice rightController;
@@ -25,6 +31,8 @@ public class GolfBall : MonoBehaviour
     public AudioSource hitSound;
     private void Start()
     {
+        npcTextBox.gameObject.SetActive(false);
+        hitValue = 0;
         InitializeControllers();
         NewGame();
     }
@@ -68,6 +76,41 @@ public class GolfBall : MonoBehaviour
             hasCollided = true;
 
             previousBallPos = transform.position;
+
+
+            Debug.Log("Golf ball hit detected!");  // Log when the ball hits the NPC
+            System.Random random = new System.Random();
+
+            hitValue = random.Next(1, 7);
+            Debug.Log(hitValue);
+            switch (hitValue)
+            {
+                case 1: 
+                    npcTextBox.text ="Nice Hit!";
+                    break;
+
+                case 2:
+                    npcTextBox.text = "Wow!";
+                    break;
+                case 3:
+                    npcTextBox.text = "Nice Swing!";
+                    break;
+                case 4:
+                    npcTextBox.text = "Fore!";
+                    break;
+                case 5:
+                    npcTextBox.text = "Five!";
+                    break;
+                case 6:
+                    npcTextBox.text = "May the course be with you";
+                    break;
+                    
+            }
+
+            if (npcTextBox != null)
+            {
+                npcTextBox.gameObject.SetActive(true); // Show the text
+            }
 
             holeScore++;
             holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
