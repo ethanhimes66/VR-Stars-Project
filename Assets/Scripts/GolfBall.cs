@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro; // Import TextMeshPro namespace
 using System;
 using UnityEngine.XR;
+using TMPro;
 
 public class GolfBall : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class GolfBall : MonoBehaviour
     private int holePar;
     private int holeScore;
 
+    public TextMeshProUGUI npcTextBox;
+    private int hitValue;
+
+
+    // Controllers for vibrations
     private InputDevice leftController;
     private InputDevice rightController;
     private bool hasCollided = false;
@@ -29,6 +35,8 @@ public class GolfBall : MonoBehaviour
 
     private void Start()
     {
+        npcTextBox.gameObject.SetActive(false);
+        hitValue = 0;
         InitializeControllers();
         NewGame();
 
@@ -70,6 +78,57 @@ public class GolfBall : MonoBehaviour
         if ((other.tag == "Golf Club" || other.tag == "Chipper") && !hasCollided)
         {
             hasCollided = true;
+
+            previousBallPos = transform.position;
+
+
+            Debug.Log("Golf ball hit detected!");  // Log when the ball hits the NPC
+            System.Random random = new System.Random();
+
+            hitValue = random.Next(1, 7);
+            Debug.Log(hitValue);
+            switch (hitValue)
+            {
+                case 1: 
+                    npcTextBox.text ="Nice Hit!";
+                    break;
+
+                case 2:
+                    npcTextBox.text = "Wow!";
+                    break;
+                case 3:
+                    npcTextBox.text = "Nice Swing!";
+                    break;
+                case 4:
+                    npcTextBox.text = "Fore!";
+                    break;
+                case 5:
+                    npcTextBox.text = "Five!";
+                    break;
+                case 6:
+                    npcTextBox.text = "May the course be with you";
+                    break;
+                    
+            }
+
+            if (npcTextBox != null)
+            {
+                npcTextBox.gameObject.SetActive(true); // Show the text
+            }
+
+            holeScore++;
+            holes[holeCount].GetComponent<Hole>().UpdateScore(holeScore);
+            Debug.Log(holeScore);
+            // Changes how fast the ball gets hit when colliding with golf club
+            GetComponent<Rigidbody>().velocity = other.GetComponent<GolfClub>().getVelocity() * 1.4f;
+            TriggerHaptic(rightController);
+
+            hitSound.Play();
+
+            StartCoroutine(ResetCollisionFlag());
+        } else if (other.tag == "Chipper" && !hasCollided) {
+            hasCollided = true;
+
             previousBallPos = transform.position;
 
             holeScore++;
